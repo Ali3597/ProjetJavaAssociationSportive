@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Tournoi {
-
     private ArrayList<Club> clubsParticipant;
     private int nbMaximumParticipants;
     private int nbMinimumParticipants;
@@ -67,5 +66,19 @@ public class Tournoi {
     public void addClub(Club club){
         this.clubsParticipant.add(club);
     }
-    
+
+    public double getPrixCreation(){
+        return  (this.nbMaximumParticipants * (10 * this.sport.prestige )) +this.cashPrice;
+    }
+
+    public void setGagnants(Club[] gagnants){
+        this.gagnants = gagnants;
+    }
+
+    public boolean tournoiPlein(){
+        if(this.nbMaximumParticipants > this.clubsParticipant.size()){
+            return  false;
+        }
+        return true;
+    }
 }
