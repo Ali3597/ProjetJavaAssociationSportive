@@ -42,14 +42,11 @@ public class Organisation {
     }
 
     public boolean inscrireEquipeTournoi(Tournoi tournoi, Club club) {
-        System.out.print("avant");
         if (this.monTournoi(tournoi) & !tournoi.tournoiPlein()) {
             this.budget += tournoi.getPrixParticipation();
-            System.out.print("ok");
             tournoi.addClub(club);
             return true;
         }
-        System.out.print("pas ok");
         return false;
     }
 
