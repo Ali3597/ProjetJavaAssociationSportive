@@ -23,9 +23,9 @@ public class Organisation {
     public Tournoi creerTournoi(int nbMaximumParticipants, int nbMinimumParticipants, double cashPrice, Sport sport,
             LocalDate dateDebut, LocalDate dateFin, double prixParticipation) {
         Tournoi tournoi = new Tournoi(nbMaximumParticipants, nbMinimumParticipants, cashPrice, sport, dateDebut,
-                dateFin, prixParticipation);
+                dateFin, prixParticipation);        
         if (tournoi.getNbMaximumParticipants() > tournoi.getNbMinimumParticipants()
-                & tournoi.getPrixParticipation() < this.budget & tournoi.getDateDebut().isAfter(LocalDate.now())
+                & tournoi.getPrixCreation() < this.budget & tournoi.getDateDebut().isAfter(LocalDate.now())
                 & tournoi.getDateDebut().isBefore(tournoi.getDateFin())) {
             this.budget -= tournoi.getPrixCreation();
             this.nosTournois.add(tournoi);
