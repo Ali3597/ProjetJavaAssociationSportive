@@ -19,8 +19,9 @@ public class ClubTest {
         monClub.integrerSportif(new Sportif(null, null, null));
         monClub.integrerSportif(new Sportif(null, null, null));
         Organisation orga = new Organisation(null, 12000);
-        Tournoi tournoi = orga.creerTournoi(12, 8, 2000, Sport.FOOTBALL, LocalDate.of(2022, 12, 8),
-                LocalDate.of(2022, 12, 10), 500);
+        LocalDate today = LocalDate.now();
+        Tournoi tournoi = orga.creerTournoi(12, 8, 2000, Sport.FOOTBALL,today.plusDays(1),
+        today.plusDays(2), 500);
         boolean inscritTournoi = monClub.participerTournoi(orga, tournoi);
         assertFalse(inscritTournoi);
 
@@ -43,8 +44,9 @@ public class ClubTest {
         monClub.integrerSportif(new Sportif(null, null, null));
         monClub.integrerSportif(new Sportif(null, null, null));
         Organisation orga = new Organisation(null, 12000);
-        Tournoi tournoi = orga.creerTournoi(12, 8, 2000, Sport.FOOTBALL, LocalDate.of(2022, 12, 8),
-                LocalDate.of(2022, 12, 10), 500);
+        LocalDate today = LocalDate.now();
+        Tournoi tournoi = orga.creerTournoi(12, 8, 2000, Sport.FOOTBALL,today.plusDays(1),
+        today.plusDays(2), 500);
         boolean inscritTournoi = monClub.participerTournoi(orga, tournoi);
         assertFalse(inscritTournoi);
     }
@@ -66,8 +68,9 @@ public class ClubTest {
         monClub.integrerSportif(new Sportif(null, null, null));
         monClub.integrerSportif(new Sportif(null, null, null));
         Organisation orga = new Organisation(null, 12000);
-        Tournoi tournoi = orga.creerTournoi(12, 8, 2000, Sport.FOOTBALL, LocalDate.of(2022, 12, 8),
-                LocalDate.of(2022, 12, 10), 500);
+        LocalDate today = LocalDate.now();
+        Tournoi tournoi = orga.creerTournoi(12, 8, 2000, Sport.FOOTBALL,today.plusDays(1),
+        today.plusDays(2), 500);
         monClub.refinancerClub(12000);
         boolean inscritTournoi = monClub.participerTournoi(orga, tournoi);
         assertTrue(inscritTournoi);
