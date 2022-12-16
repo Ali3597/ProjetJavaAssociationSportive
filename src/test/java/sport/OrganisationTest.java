@@ -87,7 +87,6 @@ public class OrganisationTest {
         monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
         monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
         monOrga.inscrireEquipeTournoi(monTournoi, unClubNonInscrit);
-        System.out.print("Unknown Host");
         assertTrue((monTournoi.getParticipants()).contains(unClubInscrit));
         assertFalse(monTournoi.getParticipants().contains(unClubNonInscrit));
         
