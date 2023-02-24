@@ -9,12 +9,16 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
+
 public class OrganisationTest {
+    LocalDate today = LocalDate.now();
+    LocalDate todayPlusOne =today.plusDays(1);
+    LocalDate todayPlusTwo =today.plusDays(2);
 
     @Test
     public void testCreerTournoiSansBudget() {
         Organisation monOrga = new Organisation("Mon organisation", 100.0);
-        Tournoi monTournoi = monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
+        Tournoi monTournoi = monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, todayPlusOne, todayPlusTwo, 300);
         assertNull(monTournoi);
     }
 
@@ -22,7 +26,7 @@ public class OrganisationTest {
     public void testCreerTournoiSansBudgetAvecRefinancement() {
         Organisation monOrga = new Organisation("Mon organisation", 100.0);
         monOrga.refinancerClub(150000);
-        Tournoi monTournoi = monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
+        Tournoi monTournoi = monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY,todayPlusOne, todayPlusTwo, 300);
         assertNotNull(monTournoi);
     }
 
@@ -36,14 +40,15 @@ public class OrganisationTest {
     @Test
     public void testCreerTournoiMauvaisNombreParticipant() {
         Organisation monOrga = new Organisation("Mon organisation", 150000.0);
-        Tournoi monTournoi = monOrga.creerTournoi(10, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
+        Tournoi monTournoi = monOrga.creerTournoi(10, 12, 1500,Sport.RUGBY, todayPlusOne, todayPlusTwo, 300);
         assertNull(monTournoi);
     }
 
     @Test
     public void testCreerBonTournoi() {
         Organisation monOrga = new Organisation("Mon organisation", 15000.0);
-        Tournoi monTournoi = monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
+        Tournoi monTournoi = monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY,todayPlusOne, todayPlusTwo, 300);
+       
         assertNotNull(monTournoi);
         assertEquals(13248.0, monOrga.getBudget(),0);
     }
@@ -52,18 +57,8 @@ public class OrganisationTest {
     public void  testCestBienMonTournoi(){
         Organisation monOrga = new Organisation("Mon organisation", 155500.0);
         Organisation autreOrga =  new Organisation("Autre organisation", 155500.0);
-        monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        Tournoi monTournoi = monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-
-        autreOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        autreOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        Tournoi autreTournoi = autreOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        autreOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        autreOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
-        
+        Tournoi monTournoi = monOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, todayPlusOne, todayPlusTwo, 300);
+        Tournoi autreTournoi = autreOrga.creerTournoi(18, 12, 1500,Sport.RUGBY, todayPlusOne, todayPlusTwo, 300);
 
         assertTrue(monOrga.monTournoi(monTournoi));
         assertFalse(autreOrga.monTournoi(monTournoi));
@@ -75,17 +70,13 @@ public class OrganisationTest {
     @Test
     public void testInscrireEquipeASonTournoi(){
         Organisation monOrga = new Organisation("Mon organisation", 155500.0);
-        Tournoi monTournoi = monOrga.creerTournoi(8, 4, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
+        Tournoi monTournoi = monOrga.creerTournoi(8, 4, 1500,Sport.RUGBY, todayPlusOne, todayPlusTwo, 300);
         Club unClubInscrit =  new Club(Sport.RUGBY, 15000, null);
         Club unClubNonInscrit = new Club(Sport.RUGBY, 15000, null);
         monOrga.inscrireEquipeTournoi(monTournoi, unClubInscrit);
-        monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
-        monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
-        monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
-        monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
-        monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
-        monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
-        monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
+        for (int i = 0; i < 7; i++) {
+            monOrga.inscrireEquipeTournoi(monTournoi, new Club(Sport.RUGBY, 15000, null));
+        }
         monOrga.inscrireEquipeTournoi(monTournoi, unClubNonInscrit);
         assertTrue((monTournoi.getParticipants()).contains(unClubInscrit));
         assertFalse(monTournoi.getParticipants().contains(unClubNonInscrit));
@@ -97,70 +88,19 @@ public class OrganisationTest {
     @Test
     public void testDeclarerVainqueur(){
         Organisation monOrga = new Organisation("Mon organisation", 155500.0);
-        Tournoi monTournoi = monOrga.creerTournoi(4, 2, 1500,Sport.RUGBY, LocalDate.of(2023,1,14), LocalDate.of(2023,1,18), 300);
+        Tournoi monTournoi = monOrga.creerTournoi(4, 2, 1500,Sport.RUGBY, todayPlusOne, todayPlusTwo, 300);
         Club premierClub = new Club(Sport.RUGBY, 15000, null);
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
-        premierClub.integrerSportif(new Sportif(null, null, null));
+        for (int i = 0; i < 20; i++) {
+            premierClub.integrerSportif(new Sportif(null, null, null));
+        }
         Club secondClub =  new Club(Sport.RUGBY, 15000, null);
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
-        secondClub.integrerSportif(new Sportif(null, null, null));
+        for (int i = 0; i < 20; i++) {
+            secondClub.integrerSportif(new Sportif(null, null, null));
+        }
         Club troisiemeClub =  new Club(Sport.RUGBY, 15000, null);
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
-        troisiemeClub.integrerSportif(new Sportif(null, null, null));
+        for (int i = 0; i < 20; i++) {
+            troisiemeClub.integrerSportif(new Sportif(null, null, null));
+        }
         premierClub.participerTournoi(monOrga, monTournoi);
         secondClub.participerTournoi(monOrga, monTournoi);
         troisiemeClub.participerTournoi(monOrga, monTournoi);
@@ -171,8 +111,6 @@ public class OrganisationTest {
         assertEquals(4.2, premierClub.getSportifs().get(4).getPrestige(),0.1);
         assertEquals(2.8,  secondClub.getSportifs().get(12).getPrestige(),0.1);
         assertEquals(1.4,  troisiemeClub.getSportifs().get(7).getPrestige(),0.1);
-
-        
     }
 
 
